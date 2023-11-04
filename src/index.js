@@ -8,7 +8,7 @@ const COLLECTION_NAME = "lolAccs";
 
 // Scraping constants
 const axios = require("axios");
-const cheerio = require("cheerio");
+const cheerio = require("cheerio"); 
 
 // Audio constants
 const ffmpeg = require("ffmpeg-static");

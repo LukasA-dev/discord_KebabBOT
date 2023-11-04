@@ -1,0 +1,22 @@
+# Ignore environment
+*.env
+
+.env
+# Ignore secret configuration files
+secret-config.json
+
+# Ignore all .log files
+*.log
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore start_bot bat
+*.bat
+
+# Ignore logs directory
+Logs/

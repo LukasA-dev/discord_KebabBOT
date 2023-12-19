@@ -196,7 +196,7 @@ client.once("ready", async () => {
   try {
     const db = await connectToMongo();
     lolAccsCollection = db.collection("lolAccs");
-    voiceActivityCollection = db.collection("voiceActivity"); // Initialize here
+    voiceActivityCollection = db.collection("voiceActivity");
   } catch (err) {
     console.error("Failed to connect to MongoDB:", err);
     process.exit(1);
@@ -282,19 +282,19 @@ client.on("messageCreate", async (message) => {
         const userAccs = await lolAccsCollection.findOne({ username });
         if (userAccs && userAccs.accounts.length > 0) {
           return message.reply(
-            `<@${username}> pisslåga skitkonton är  ${userAccs.accounts.join(
+            `<@${username}> konton är  ${userAccs.accounts.join(
               ", "
             )}`
           );
         } else {
-          return message.reply(`<@${username}> har inte ens några skitkonton`);
+          return message.reply(`<@${username}> har inte några konton`);
         }
       }
 
       // Validate the sub-command
       if (!["add", "remove", "clear"].includes(subCommand)) {
         return message.reply(
-          "bror är du dum? testa med add, remove, clear din luffare ;)"
+          "testa med add, remove, clear din luffare ;)"
         );
       }
 
@@ -307,7 +307,7 @@ client.on("messageCreate", async (message) => {
         );
         const updatedAccs = await lolAccsCollection.findOne({ username });
         message.reply(
-          `Dina konton har uppdaterats, din nya pisslow lista: ${updatedAccs.accounts.join(
+          `Dina konton har uppdaterats, din nya lista: ${updatedAccs.accounts.join(
             ", "
           )}`
         );
@@ -321,12 +321,12 @@ client.on("messageCreate", async (message) => {
         );
         if (result.modifiedCount === 0) {
           return message.reply(
-            "Inte ens ett endaste konto hittades att ta bort..."
+            "Inte ett endaste konto hittades att ta bort..."
           );
         }
         const updatedAccs = await lolAccsCollection.findOne({ username });
         message.reply(
-          `Dina konton har uppdaterats, din nya pisslow lista: ${updatedAccs.accounts.join(
+          `Dina konton har uppdaterats, din nya lista: ${updatedAccs.accounts.join(
             ", "
           )}`
         );
@@ -338,7 +338,7 @@ client.on("messageCreate", async (message) => {
           { username },
           { $set: { accounts: [] } }
         );
-        message.reply("Dina konton blev wipade LOL.");
+        message.reply("Dina konton blev wipade.");
       }
     } else if (command === "play") {
       const voiceChannel = message.member.voice.channel;
@@ -410,7 +410,7 @@ client.on("messageCreate", async (message) => {
           serverQueue.connection.disconnect();
           message.reply("Kebab BOT has stopped jamming.");
         } else {
-          message.reply("Jag är inte ens i en kanal XDD.");
+          message.reply("Jag är inte i en kanal.");
         }
       } catch (error) {
         console.error("Error in stop command:", error);
@@ -419,7 +419,7 @@ client.on("messageCreate", async (message) => {
     } else if (command === "q") {
       const serverQueue = songQueue.get(message.guild.id);
       if (!serverQueue || serverQueue.songs.length === 0) {
-        return message.channel.send("Kön är tom yäni");
+        return message.channel.send("Kön är tom");
       }
       const songList = serverQueue.songs
         .map((song, index) => `${index + 1}. ${song.title}`)
@@ -428,7 +428,7 @@ client.on("messageCreate", async (message) => {
     } else if (command === "skip") {
       const serverQueue = songQueue.get(message.guild.id);
       if (!serverQueue) {
-        return message.channel.send("Blud tror man kan skippa luft :skull:");
+        return message.channel.send("Sätt på något först :skull:");
       }
       skip(message, serverQueue);
     } else if (command === "qclear") {
@@ -466,7 +466,7 @@ client.on("messageCreate", async (message) => {
       if (!detailedCommand) {
         return message.channel.send(
           "Available commands:\n" +
-            "- `k!lolaccs`: Hantera dina fakking lolkonton. Subcommands: `add`, `remove`, `clear`\n" +
+            "- `k!lolaccs`: Hantera dina lolkonton. Subcommands: `add`, `remove`, `clear`\n" +
             "- `k!play [URL]`: Jamma en youtubelåt.\n" +
             "- `k!stop`: Stannar musiken och lämnar voice.\n" +
             "- `k!skip`: Skippa låten\n" +
@@ -479,7 +479,7 @@ client.on("messageCreate", async (message) => {
 
       const helpDetails = {
         lolaccs:
-          "Hantera dina fakking lolkonton. Subcommands: `add [account1, account2, ...]`, `remove [account1, account2, ...]`, `clear`",
+          "Hantera dina lolkonton. Subcommands: `add [account1, account2, ...]`, `remove [account1, account2, ...]`, `clear`",
         play: "Jamma en youtubelåt. Usage: `k!play [URL]`",
         stop: "Stannar musiken och lämnar voice.",
         skip: "Skippa låten",
@@ -531,11 +531,11 @@ client.on("messageCreate", async (message) => {
 
         if (showTotal) {
           message.reply(
-            `<@${userId}> har totalt wastat ${readableTotalTime} i safespace :skull:`
+            `<@${userId}> har totalt wastat ${readableTotalTime} :skull:`
           );
         } else {
           message.reply(
-            `<@${userId}> har wastat ${readableTime} i safespace denna session :skull:`
+            `<@${userId}> har wastat ${readableTime} i denna session :skull:`
           );
         }
       } else {

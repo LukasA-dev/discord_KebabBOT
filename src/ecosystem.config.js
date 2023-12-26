@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'Kebab BOT',
-    script: './src/index.js',
+    script: 'index.js',
     out_file: "./Logs/out.log",
     error_file: "./Logs/error.log",
     log_date_format: "YYYY-MM-DD HH:mm:ss",
